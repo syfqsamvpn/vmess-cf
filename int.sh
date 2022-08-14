@@ -25,6 +25,7 @@ EOF
     vmesslink1="vmess://$(base64 -w 0 /root/$user-tls.json)"
     echo ""
     echo "Config : $vmesslink1"
+    rm -f /root/$user-tls.json
 }
 
 vless_req() {
