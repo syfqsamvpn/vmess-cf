@@ -14,7 +14,7 @@ vmess_req() {
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
-      "path": "${path}",
+      "path": "wss://who.int${path}",
       "type": "none",
       "host": "${domain}",
       "sni": "who.int",
