@@ -1,6 +1,21 @@
 #!/bin/bash
 vmess_req() {
     user=$(tr </dev/urandom -dc a-zA-Z0-9 | head -c8)
+    echo -e "[1] Digi"
+    echo -e "[2] Maxis"
+    echo -ne "Telco ? : "
+    read telco
+    case "$telco" in
+    1)
+        kumbang='cf.ctechdidik.me'
+        ;;
+    2)
+        kumbang='who.int'
+        ;;
+    *)
+        vmess_req
+        ;;
+    esac
     read -p "Domain : " domain
     read -p "Uuid   : " uuid
     read -p "path   : " path
@@ -9,15 +24,15 @@ vmess_req() {
       {
       "v": "0",
       "ps": "${user}",
-      "add": "who.int",
+      "add": "${kumbang}",
       "port": "443",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
-      "path": "wss://who.int${path}",
+      "path": "wss://${kumbang}${path}",
       "type": "none",
       "host": "${domain}",
-      "sni": "who.int",
+      "sni": "${kumbang}",
       "tls": "tls"
 }
 EOF
@@ -30,12 +45,27 @@ EOF
 
 vless_req() {
     user=$(tr </dev/urandom -dc a-zA-Z0-9 | head -c8)
+    echo -e "[1] Digi"
+    echo -e "[2] Maxis"
+    echo -ne "Telco ? : "
+    read telco
+    case "$telco" in
+    1)
+        kumbang='cf.ctechdidik.me'
+        ;;
+    2)
+        kumbang='who.int'
+        ;;
+    *)
+        vless_req
+        ;;
+    esac
     read -p "Domain : " domain
     read -p "Uuid   : " uuid
     read -p "path   : " path
 
     echo ""
-    echo "Config : vless://${uuid}@who.int:443?path=wss://who.int${path}&security=tls&encryption=none&type=ws&host=${domain}&sni=who.int#${user}"
+    echo "Config : vless://${uuid}@${kumbang}:443?path=wss://${kumbang}${path}&security=tls&encryption=none&type=ws&host=${domain}&sni=${kumbang}#${user}"
 }
 
 protocol_req() {
